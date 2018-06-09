@@ -101,7 +101,7 @@ public class Matrix {
     public static void nextGeneration(int rowStart, int rowEnd) {
         for (int i = rowStart; i < rowEnd; i++) {
             for (int j = 0; j < columns; j++) {
-                setCellTemperature(i, j, calculateNewTemperature(i, j));
+                setCellTemperature(i, j, calculateNewTemperature(i, j)-1);
             }
         }
     }

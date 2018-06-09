@@ -34,6 +34,8 @@ public class ControllerStartWindow {
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showOpenDialog(StartWindow.getStage());
             Matrix.readFromFile(file.getAbsolutePath());
+            Parameters.setFilepath(file.getAbsolutePath());
+            selectedFileTextField.setText("" + file.getAbsolutePath());
         } catch (Exception ignored) {
         }
     }
