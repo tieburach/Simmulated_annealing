@@ -1,24 +1,21 @@
 package sample.Controller;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Model.MainWindow;
+import sample.Model.Matrix;
 import sample.Model.StartWindow;
 import sample.Model.Parameters;
 
+import java.io.File;
+
 public class ControllerStartWindow {
-    public Button browseButton;
-    public Button helpButton;
-    public Button submitButton;
+    public Button browseButton, helpButton, submitButton;
     public TextField selectedFileTextField;
     public TextField selectedTemperature;
-    public CheckBox celciusCheckBox;
-    public CheckBox kelvinCheckBox;
-    public CheckBox fahrenheitCheckBox;
+    public CheckBox celciusCheckBox, kelvinCheckBox, fahrenheitCheckBox;
     public ComboBox numberOfThreadsBox;
 
 
@@ -29,11 +26,26 @@ public class ControllerStartWindow {
     }
 
     public void browseButtonAction(ActionEvent actionEvent) {
-
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Znajdz plik z macierza startowa");
+            FileChooser.ExtensionFilter extFilter =
+                    new FileChooser.ExtensionFilter("TEXT files (*.txt)", "*.txt");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showOpenDialog(StartWindow.getStage());
+            Matrix.readFromFile(file.getAbsolutePath());
+            //Matrix.getCellTemperature(2, 1);
+            //Matrix.saveToFile(file.getAbsolutePath());
+        } catch (Exception ignored) {
+        }
     }
 
     public void helpButtonAction(ActionEvent actionEvent) {
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Pomoc");
+        alert.setHeaderText("Informacje do działania programu");
+        alert.setContentText("");
+        alert.showAndWait();
     }
 
     public void submitButtonAction(ActionEvent actionEvent) {
