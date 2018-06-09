@@ -36,6 +36,8 @@ public class ControllerStartWindow {
             Matrix.readFromFile(file.getAbsolutePath());
             //Matrix.getCellTemperature(2, 1);
             //Matrix.saveToFile(file.getAbsolutePath());
+
+
         } catch (Exception ignored) {
         }
     }

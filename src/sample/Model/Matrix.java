@@ -7,11 +7,11 @@ public class Matrix {
     private static int columns;
     private static int rows;
 
-    public Matrix (int rows, int columns){
+    public Matrix(int rows, int columns) {
         matrix = new double[rows][columns];
     }
 
-    public static void readFromFile (String filepath){
+    public static void readFromFile(String filepath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             String line = br.readLine();
             rows = Integer.parseInt(line);
@@ -22,7 +22,7 @@ public class Matrix {
             while (line != null) {
                 for (int i = 0; i < rows; i++) {
                     String[] parts = line.split(" ");
-                    for (int j = 0; j < columns ; j++) {
+                    for (int j = 0; j < columns; j++) {
                         setCellTemperature(i, j, Double.parseDouble(parts[j]));
                     }
                     line = br.readLine();
@@ -35,7 +35,7 @@ public class Matrix {
     }
 
 
-    public static void saveToFile(String filepath){
+    public static void saveToFile(String filepath) {
         try {
             FileOutputStream fos = new FileOutputStream(new File(filepath));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
@@ -47,18 +47,17 @@ public class Matrix {
                 bw.newLine();
             }
             bw.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-
-    public static double getCellTemperature(int row, int column){
+    public static double getCellTemperature(int row, int column) {
         return matrix[row][column];
     }
 
-    public static void setCellTemperature(int row, int column, double value){
+    public static void setCellTemperature(int row, int column, double value) {
         matrix[row][column] = value;
     }
 
@@ -74,5 +73,27 @@ public class Matrix {
         return rows;
     }
 
+    public static double getMinTemperature() {
+        double min = getCellTemperature(0, 0);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (getCellTemperature(i, j) < min) {
+                    min = getCellTemperature(i, j);
+                }
+            }
+        }
+        return min;
+    }
 
+    public static double getMaxTemperature() {
+        double max = getCellTemperature(0, 0);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (getCellTemperature(i, j) > max) {
+                    max = getCellTemperature(i, j);
+                }
+            }
+        }
+        return max;
+    }
 }
