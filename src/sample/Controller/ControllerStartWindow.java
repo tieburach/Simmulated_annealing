@@ -34,10 +34,6 @@ public class ControllerStartWindow {
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showOpenDialog(StartWindow.getStage());
             Matrix.readFromFile(file.getAbsolutePath());
-            //Matrix.getCellTemperature(2, 1);
-            //Matrix.saveToFile(file.getAbsolutePath());
-
-
         } catch (Exception ignored) {
         }
     }
@@ -61,9 +57,6 @@ public class ControllerStartWindow {
         }
 
         Parameters.setNumberOfThreads(Integer.parseInt(numberOfThreadsBox.getValue().toString()));
-        System.out.println("Liczba watkow:");
-        System.out.println(Parameters.getNumberOfThreads());
-
         //przerzucenie stage
         StartWindow.getStage().close();
         MainWindow mainWindow = new MainWindow(new Stage());

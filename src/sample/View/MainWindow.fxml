@@ -12,27 +12,27 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextField id="numberOfGeneration" fx:id="numberOfGeneration" alignment="CENTER" editable="false" layoutY="14.0" text="Numer generacji: 1">
+                  <TextField id="numberOfGenerationTextField" fx:id="numberOfGenerationTextField" alignment="CENTER" editable="false" layoutY="14.0" text="Numer generacji: 1">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <TextField id="actualTime" fx:id="actualTime" alignment="CENTER" editable="false" layoutX="300.0" layoutY="14.0" text="Czas od rozpoczecia: 0s">
+                  <TextField id="actualTimeTextField" fx:id="actualTimeTextField" alignment="CENTER" editable="false" layoutX="300.0" layoutY="14.0" text="Czas od rozpoczecia: 0s">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <TextField alignment="CENTER" layoutY="82.0" text="Ilość procesów: 4">
+                  <TextField id="numberOfThreadsTextField" fx:id="numberOfThreadsTextField" alignment="CENTER" layoutY="82.0" text="Ilość procesów: 4">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <TextField alignment="CENTER" layoutX="600.0" layoutY="14.0" text="Kryterium stopu: 10">
+                  <TextField id="stopCriteriaTextField" fx:id="stopCriteriaTextField" alignment="CENTER" layoutX="600.0" layoutY="14.0" text="Kryterium stopu: ">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <TextField alignment="CENTER" layoutX="600.0" layoutY="82.0" text="Aktualne minimum: 20">
+                  <TextField id="actualMinimumTemperatureTextField" fx:id="actualMinimumTemperatureTextField" alignment="CENTER" layoutX="600.0" layoutY="82.0" text="Aktualne minimum: ">
                      <font>
                         <Font size="24.0" />
                      </font>

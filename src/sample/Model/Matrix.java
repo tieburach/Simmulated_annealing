@@ -96,4 +96,27 @@ public class Matrix {
         }
         return max;
     }
+
+
+    public static void nextGeneration(int rowStart, int rowEnd) {
+        for (int i = rowStart; i < rowEnd; i++) {
+            for (int j = 0; j < columns; j++) {
+                setCellTemperature(i, j, calculateNewTemperature(i, j));
+            }
+        }
+    }
+
+    public static double calculateNewTemperature(int row, int col) {
+        double currentTemperature = getCellTemperature(row, col);
+        try {
+            double sumOfNeighbours = getCellTemperature(row - 1, col)
+                    + getCellTemperature(row + 1, col)
+                    + getCellTemperature(row, col - 1)
+                    + getCellTemperature(row, col + 1);
+            currentTemperature = sumOfNeighbours/4;
+        }catch (Exception e){
+            System.out.println("Warunek brzegowy");
+        }
+        return currentTemperature;
+    }
 }

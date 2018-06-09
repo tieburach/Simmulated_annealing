@@ -21,4 +21,12 @@ public class Parameters {
     public static void setNumberOfThreads(int numberOfThreads) {
         Parameters.numberOfThreads = numberOfThreads;
     }
+
+    public static String getFilepath() {
+        return filepath;
+    }
+
+    public static void setFilepath(String filepath) {
+        Parameters.filepath = filepath;
+    }
 }
