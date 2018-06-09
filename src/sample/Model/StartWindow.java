@@ -24,6 +24,7 @@ public class StartWindow {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert root != null;
         Scene scene = new Scene(root, 500, 600);
         String css = Main.class.getResource("css/style.css").toExternalForm();
         scene.getStylesheets().add(css);

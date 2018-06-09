@@ -1,6 +1,5 @@
 package sample.Controller;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import sample.Model.Matrix;
@@ -26,14 +25,16 @@ public class ControllerMainWindow {
     }
 
 
-    public void continuosRunButtonAction(ActionEvent actionEvent) {
+    public void continuosRunButtonAction() {
+
+
     }
 
-    public void saveButtonAction(ActionEvent actionEvent) {
+    public void saveButtonAction() {
         Matrix.saveToFile(Parameters.getFilepath());
     }
 
-    public void nextGenerationButtonAction(ActionEvent actionEvent) {
+    public void nextGenerationButtonAction() {
         Matrix.nextGeneration(0, Matrix.getRows());
         numberOfGenerationTextField.setText("Aktualna generacja: " + numberOfGeneration);
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -42,7 +43,7 @@ public class ControllerMainWindow {
         numberOfGeneration++;
     }
 
-    public void finishButtonAction(ActionEvent actionEvent) {
+    public void finishButtonAction() {
         System.exit(0);
     }
 }

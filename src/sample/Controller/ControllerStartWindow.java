@@ -1,20 +1,18 @@
 package sample.Controller;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.Model.MainWindow;
 import sample.Model.Matrix;
-import sample.Model.StartWindow;
 import sample.Model.Parameters;
+import sample.Model.StartWindow;
 
 import java.io.File;
 
 public class ControllerStartWindow {
     public Button browseButton, helpButton, submitButton;
-    public TextField selectedFileTextField;
-    public TextField selectedTemperature;
+    public TextField selectedFileTextField, selectedTemperature;
     public CheckBox celciusCheckBox, kelvinCheckBox, fahrenheitCheckBox;
     public ComboBox numberOfThreadsBox;
 
@@ -25,7 +23,7 @@ public class ControllerStartWindow {
         numberOfThreadsBox.setValue("4");
     }
 
-    public void browseButtonAction(ActionEvent actionEvent) {
+    public void browseButtonAction() {
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Znajdz plik z macierza startowa");
@@ -40,7 +38,7 @@ public class ControllerStartWindow {
         }
     }
 
-    public void helpButtonAction(ActionEvent actionEvent) {
+    public void helpButtonAction() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Pomoc");
         alert.setHeaderText("Informacje do działania programu");
@@ -48,7 +46,7 @@ public class ControllerStartWindow {
         alert.showAndWait();
     }
 
-    public void submitButtonAction(ActionEvent actionEvent) {
+    public void submitButtonAction() {
         //ustawienie zmiennej stopu, przeliczanie
         if (kelvinCheckBox.isSelected()) {
             Parameters.setStopCriteria(Integer.parseInt(selectedTemperature.getText()) - 273);
@@ -66,17 +64,17 @@ public class ControllerStartWindow {
 
     }
 
-    public void celciusCheckBoxAction(ActionEvent actionEvent) {
+    public void celciusCheckBoxAction() {
         kelvinCheckBox.setSelected(false);
         fahrenheitCheckBox.setSelected(false);
     }
 
-    public void kelvinCheckBoxAction(ActionEvent actionEvent) {
+    public void kelvinCheckBoxAction() {
         celciusCheckBox.setSelected(false);
         fahrenheitCheckBox.setSelected(false);
     }
 
-    public void fahrenheitCheckBoxAction(ActionEvent actionEvent) {
+    public void fahrenheitCheckBoxAction() {
         celciusCheckBox.setSelected(false);
         kelvinCheckBox.setSelected(false);
     }

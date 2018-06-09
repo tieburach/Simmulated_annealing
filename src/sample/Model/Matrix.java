@@ -53,15 +53,15 @@ public class Matrix {
     }
 
 
-    public static double getCellTemperature(int row, int column) {
+    private static double getCellTemperature(int row, int column) {
         return matrix[row][column];
     }
 
-    public static void setCellTemperature(int row, int column, double value) {
+    private static void setCellTemperature(int row, int column, double value) {
         matrix[row][column] = value;
     }
 
-    public static double[][] getMatrix() {
+    static double[][] getMatrix() {
         return matrix;
     }
 
@@ -106,7 +106,7 @@ public class Matrix {
         }
     }
 
-    public static double calculateNewTemperature(int row, int col) {
+    private static double calculateNewTemperature(int row, int col) {
         double currentTemperature = getCellTemperature(row, col);
         try {
             double sumOfNeighbours = getCellTemperature(row - 1, col)
