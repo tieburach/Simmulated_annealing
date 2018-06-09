@@ -7,8 +7,6 @@ import sample.Model.StartWindow;
 
 public class Main extends Application{
 
-
-    //test czy dobrze sie commituje
     @Override
     public void start(Stage primaryStage) throws Exception{
         StartWindow startWindow = new StartWindow(primaryStage);

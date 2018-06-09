@@ -27,12 +27,12 @@
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <TextField alignment="CENTER" layoutX="598.0" layoutY="14.0" text="Kryterium stopu: 10">
+                  <TextField alignment="CENTER" layoutX="600.0" layoutY="14.0" text="Kryterium stopu: 10">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <TextField alignment="CENTER" layoutX="592.0" layoutY="93.0" text="Aktualne minimum: 20">
+                  <TextField alignment="CENTER" layoutX="600.0" layoutY="82.0" text="Aktualne minimum: 20">
                      <font>
                         <Font size="24.0" />
                      </font>
