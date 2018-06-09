@@ -20,7 +20,7 @@ public class ControllerStartWindow {
 
 
     //wartosci domyslne
-    public void initialize(){
+    public void initialize() {
         selectedTemperature.setText("10");
         numberOfThreadsBox.setValue("4");
     }
@@ -50,10 +50,10 @@ public class ControllerStartWindow {
 
     public void submitButtonAction(ActionEvent actionEvent) {
         //ustawienie zmiennej stopu, przeliczanie
-        if (kelvinCheckBox.isSelected()){
-            Parameters.setStopCriteria(Integer.parseInt(selectedTemperature.getText())-273);
-        } else if (fahrenheitCheckBox.isSelected()){
-            Parameters.setStopCriteria((int) ((Float.parseFloat(selectedTemperature.getText())-32)* 5 / 9));
+        if (kelvinCheckBox.isSelected()) {
+            Parameters.setStopCriteria(Integer.parseInt(selectedTemperature.getText()) - 273);
+        } else if (fahrenheitCheckBox.isSelected()) {
+            Parameters.setStopCriteria((int) ((Float.parseFloat(selectedTemperature.getText()) - 32) * 5 / 9));
         } else {
             Parameters.setStopCriteria(Integer.parseInt(selectedTemperature.getText()));
         }
