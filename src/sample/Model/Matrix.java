@@ -4,6 +4,11 @@ import java.io.*;
 
 public class Matrix {
     private static double[][] matrix;
+
+    public static void setRows(int rows) {
+        Matrix.rows = rows;
+    }
+
     private static int columns;
     private static int rows;
 
@@ -53,7 +58,7 @@ public class Matrix {
     }
 
 
-    private static double getCellTemperature(int row, int column) {
+    public static double getCellTemperature(int row, int column) {
         return matrix[row][column];
     }
 
@@ -115,8 +120,12 @@ public class Matrix {
                     + getCellTemperature(row, col + 1);
             currentTemperature = sumOfNeighbours/4;
         }catch (Exception e){
-            System.out.println("Warunek brzegowy");
+            //System.out.println("Warunek brzegowy");
         }
         return currentTemperature;
+    }
+
+    public static void createThreads(){
+
     }
 }

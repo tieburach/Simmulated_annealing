@@ -2,8 +2,7 @@ package sample.Controller;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import sample.Model.Matrix;
-import sample.Model.Parameters;
+import sample.Model.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,15 +34,20 @@ public class ControllerMainWindow {
     }
 
     public void nextGenerationButtonAction() {
-        Matrix.nextGeneration(0, Matrix.getRows());
         numberOfGenerationTextField.setText("Aktualna generacja: " + numberOfGeneration);
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         actualTimeTextField.setText("Aktualny czas: " + dateFormat.format(new Date()));
         actualMinimumTemperatureTextField.setText("Aktualna najniższa: " + Matrix.getMinTemperature() );
         numberOfGeneration++;
+
+        RowsDivider.divideRowsIntoThreads();
+        for (int i = 0; i <Parameters.getNumberOfThreads() ; i++) {
+            CalculationThread calculationThread = new CalculationThread(i, RowsDivider.getBegginingRow(i), RowsDivider.getFinishingRow(i));
+            calculationThread.start();
+        }
     }
 
-    public void finishButtonAction() {
-        System.exit(0);
+    public void finishButtonAction() { ;
+        HeatMapColors.saveImage(HeatMapColors.createColorScaleImage(), "JAKIESCOS.png");
     }
 }
