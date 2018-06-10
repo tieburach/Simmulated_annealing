@@ -70,10 +70,10 @@ public class Matrix {
         double sum = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                sum += Matrix.getCellTemperature(i,j);
+                sum += Matrix.getCellTemperature(i, j);
             }
         }
-        return sum/(Matrix.getRows()*Matrix.getColumns());
+        return sum / (Matrix.getRows() * Matrix.getColumns());
     }
 
     private static double getMaxTemperature() {
@@ -97,7 +97,7 @@ public class Matrix {
         }
     }
 
-    private static double calculateNewTemperature(int row, int col) {
+    private synchronized static double calculateNewTemperature(int row, int col) {
         /*
         Temp =T.Otoczenia + (T.Poprzednia – T.Otoczenia) exp (-kt), gdzie t =1;
          */
@@ -112,20 +112,29 @@ public class Matrix {
         if (proportion > random) {
             return newTemperature;
         } else {
-          double neighbourValue;
-          try{
-              neighbourValue = Matrix.getCellTemperature(row-1, col);
-          } catch (Exception e){
-              neighbourValue = Matrix.getCellTemperature(row+1, col);
-          }
-          return neighbourValue;
-        }
+            double neighbourValue;
 
+
+            if (row < Matrix.getRows() / 2) {
+                try {
+                    neighbourValue = Matrix.getCellTemperature(row - 1, col);
+                } catch (Exception e) {
+                    neighbourValue = Matrix.getCellTemperature(row + 1, col);
+                }
+            } else {
+                try {
+                    neighbourValue = Matrix.getCellTemperature(row + 1, col);
+                } catch (Exception e) {
+                    neighbourValue = Matrix.getCellTemperature(row - 1, col);
+                }
+            }
+            return neighbourValue;
+        }
     }
 
 
     private static double calculateResultProbability(int row, int col) {
-        double current, result = 0;
+        double result = 0;
         int divider = 0;
         for (int i = row - 2; i <= row + 2; i++) {
             for (int j = col - 2; j <= col + 2; j++) {
