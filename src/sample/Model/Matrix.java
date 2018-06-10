@@ -5,16 +5,8 @@ import java.io.*;
 public class Matrix {
     private static double[][] matrix;
 
-    public static void setRows(int rows) {
-        Matrix.rows = rows;
-    }
-
     private static int columns;
     private static int rows;
-
-    public Matrix(int rows, int columns) {
-        matrix = new double[rows][columns];
-    }
 
     public static void readFromFile(String filepath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
@@ -32,7 +24,7 @@ public class Matrix {
                     }
                     line = br.readLine();
                 }
-
+                Parameters.setStartingMaximum(getMaxTemperature());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,7 +50,7 @@ public class Matrix {
     }
 
 
-    public static double getCellTemperature(int row, int column) {
+    static double getCellTemperature(int row, int column) {
         return matrix[row][column];
     }
 
@@ -66,31 +58,25 @@ public class Matrix {
         matrix[row][column] = value;
     }
 
-    static double[][] getMatrix() {
-        return matrix;
-    }
-
-    public static int getColumns() {
+    static int getColumns() {
         return columns;
     }
 
-    public static int getRows() {
+    static int getRows() {
         return rows;
     }
 
     public static double getMinTemperature() {
-        double min = getCellTemperature(0, 0);
+        double sum = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                if (getCellTemperature(i, j) < min) {
-                    min = getCellTemperature(i, j);
-                }
+                sum += Matrix.getCellTemperature(i,j);
             }
         }
-        return min;
+        return sum/(Matrix.getRows()*Matrix.getColumns());
     }
 
-    public static double getMaxTemperature() {
+    private static double getMaxTemperature() {
         double max = getCellTemperature(0, 0);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -103,29 +89,81 @@ public class Matrix {
     }
 
 
-    public static void nextGeneration(int rowStart, int rowEnd) {
-        for (int i = rowStart; i < rowEnd; i++) {
+    static void nextGeneration(int rowStart, int rowEnd) {
+        for (int i = rowStart; i <= rowEnd; i++) {
             for (int j = 0; j < columns; j++) {
-                setCellTemperature(i, j, calculateNewTemperature(i, j)-1);
+                setCellTemperature(i, j, calculateNewTemperature(i, j));
             }
         }
     }
 
     private static double calculateNewTemperature(int row, int col) {
-        double currentTemperature = getCellTemperature(row, col);
-        try {
-            double sumOfNeighbours = getCellTemperature(row - 1, col)
-                    + getCellTemperature(row + 1, col)
-                    + getCellTemperature(row, col - 1)
-                    + getCellTemperature(row, col + 1);
-            currentTemperature = sumOfNeighbours/4;
-        }catch (Exception e){
-            //System.out.println("Warunek brzegowy");
+        /*
+        Temp =T.Otoczenia + (T.Poprzednia – T.Otoczenia) exp (-kt), gdzie t =1;
+         */
+        double newTemperature, ourResultProbability;
+        double random = Math.random();
+        double temperatureOfSurroundings = calculateSumOfNeighbours(row, col);
+        newTemperature = temperatureOfSurroundings + (getCellTemperature(row, col) - temperatureOfSurroundings)
+                * Math.exp(-(Parameters.getCurrentMaterialRatio() * Parameters.getTimeUnit()));
+        ourResultProbability = calculateResultProbability(row, col);
+        double proportion = ourResultProbability > Matrix.getCellTemperature(row, col) ? Matrix.getCellTemperature(row, col) / ourResultProbability : ourResultProbability / Matrix.getCellTemperature(row, col);
+
+        if (proportion > random) {
+            return newTemperature;
+        } else {
+          double neighbourValue;
+          try{
+              neighbourValue = Matrix.getCellTemperature(row-1, col);
+          } catch (Exception e){
+              neighbourValue = Matrix.getCellTemperature(row+1, col);
+          }
+          return neighbourValue;
         }
-        return currentTemperature;
+
     }
 
-    public static void createThreads(){
 
+    private static double calculateResultProbability(int row, int col) {
+        double current, result = 0;
+        int divider = 0;
+        for (int i = row - 2; i <= row + 2; i++) {
+            for (int j = col - 2; j <= col + 2; j++) {
+                try {
+                    result += Matrix.getCellTemperature(i, j);
+                    divider++;
+                } catch (Exception ignored) {
+                }
+            }
+        }
+        return result / divider;
+    }
+
+    public static double calculateSumOfNeighbours(int row, int col) {
+        double currentTemperature, sumOfNeighbours = 0;
+        double first, second, third, fourth;
+        try {
+            first = getCellTemperature(row - 1, col);
+        } catch (Exception e) {
+            first = 0;
+        }
+        try {
+            second = getCellTemperature(row + 1, col);
+        } catch (Exception e) {
+            second = 0;
+        }
+        try {
+            third = getCellTemperature(row, col - 1);
+        } catch (Exception e) {
+            third = 0;
+        }
+        try {
+            fourth = getCellTemperature(row, col + 1);
+        } catch (Exception e) {
+            fourth = 0;
+        }
+        sumOfNeighbours = first + second + third + fourth;
+        currentTemperature = sumOfNeighbours / 4;
+        return currentTemperature;
     }
 }

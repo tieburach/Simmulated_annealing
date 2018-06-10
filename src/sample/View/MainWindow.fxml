@@ -3,49 +3,49 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerMainWindow">
-   <children>
-      <SplitPane dividerPositions="0.85" layoutX="420.0" layoutY="269.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <TextField id="numberOfGenerationTextField" fx:id="numberOfGenerationTextField" alignment="CENTER" editable="false" layoutY="14.0" text="Numer generacji: 1">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField id="actualTimeTextField" fx:id="actualTimeTextField" alignment="CENTER" editable="false" layoutX="300.0" layoutY="14.0" text="Czas od rozpoczecia: 0s">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField id="numberOfThreadsTextField" fx:id="numberOfThreadsTextField" alignment="CENTER" layoutY="82.0" text="Ilość procesów: 4">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField id="stopCriteriaTextField" fx:id="stopCriteriaTextField" alignment="CENTER" layoutX="600.0" layoutY="14.0" text="Kryterium stopu: ">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-                  <TextField id="actualMinimumTemperatureTextField" fx:id="actualMinimumTemperatureTextField" alignment="CENTER" layoutX="600.0" layoutY="82.0" text="Aktualne minimum: ">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </TextField>
-               </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Button id="continuosRunButton" fx:id="continuosRunButton" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#continuosRunButtonAction" prefWidth="200" text="Przejdź w tryb ciągły" />
-                  <Button id="saveButton" fx:id="saveButton" layoutX="240.0" layoutY="30.0" mnemonicParsing="false" onAction="#saveButtonAction" prefWidth="200" text="Zapisz do pliku" />
-                  <Button id="nextGenerationButton" fx:id="nextGenerationButton" layoutX="460.0" layoutY="30.0" mnemonicParsing="false" onAction="#nextGenerationButtonAction" prefWidth="200" text="Następna generacja" />
-                  <Button id="finishButton" fx:id="finishButton" layoutX="680.0" layoutY="30.0" mnemonicParsing="false" onAction="#finishButtonAction" prefWidth="200" text="Zakończ" />
-               </children></AnchorPane>
-        </items>
-      </SplitPane>
-   </children>
+<AnchorPane prefHeight="700.0" prefWidth="900.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.ControllerMainWindow">
+   <SplitPane dividerPositions="0.85" layoutX="420.0" layoutY="269.0" orientation="VERTICAL" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+         <TextField id="numberOfGenerationTextField" fx:id="numberOfGenerationTextField" alignment="CENTER" editable="false" layoutY="14.0" text="Numer generacji: 1">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </TextField>
+         <TextField id="actualTimeTextField" fx:id="actualTimeTextField" alignment="CENTER" editable="false" layoutX="300.0" layoutY="14.0" text="Czas od rozpoczecia: 0s">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </TextField>
+         <TextField id="numberOfThreadsTextField" fx:id="numberOfThreadsTextField" alignment="CENTER" layoutY="82.0" text="Ilość procesów: 4">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </TextField>
+         <TextField id="stopCriteriaTextField" fx:id="stopCriteriaTextField" alignment="CENTER" layoutX="600.0" layoutY="14.0" text="Kryterium stopu: ">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </TextField>
+         <TextField id="actualMinimumTemperatureTextField" fx:id="actualMinimumTemperatureTextField" alignment="CENTER" layoutX="600.0" layoutY="82.0" text="Aktualne minimum: ">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </TextField>
+         <StackPane id="imagePane" fx:id="imagePane" layoutX="140.0" layoutY="157.0" prefHeight="418.0" prefWidth="618.0">
+            <ImageView id="imageView" fx:id="imageView" fitHeight="417.0" fitWidth="615.0" pickOnBounds="true" preserveRatio="true" />
+         </StackPane>
+         <Button id="stopButton" fx:id="stopButton" onAction="#stopButtonAction" visible="false" layoutX="364.0" layoutY="84.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" text="Zatrzymaj" />
+      </AnchorPane>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+         <Button id="continuosRunButton" fx:id="continuosRunButton" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#continuosRunButtonAction" prefWidth="200" text="Przejdź w tryb ciągły" />
+         <Button id="saveButton" fx:id="saveButton" layoutX="240.0" layoutY="30.0" mnemonicParsing="false" onAction="#saveButtonAction" prefWidth="200" text="Zapisz do pliku" />
+         <Button id="nextGenerationButton" fx:id="nextGenerationButton" layoutX="460.0" layoutY="30.0" mnemonicParsing="false" onAction="#nextGenerationButtonAction" prefWidth="200" text="Następna generacja" />
+         <Button id="finishButton" fx:id="finishButton" layoutX="680.0" layoutY="30.0" mnemonicParsing="false" onAction="#finishButtonAction" prefWidth="200" text="Zakończ" />
+      </AnchorPane>
+   </SplitPane>
 </AnchorPane>

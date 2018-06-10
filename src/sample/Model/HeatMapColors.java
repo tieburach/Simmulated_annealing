@@ -9,19 +9,19 @@ import java.io.IOException;
 public class HeatMapColors {
 
     private static Color getColorForValue(double value) {
-        float zakres = (float)Matrix.getMaxTemperature() - Parameters.getStopCriteria();
+        float zakres = (float)Parameters.getStartingMaximum() - Parameters.getStopCriteria();
         float proportion = 240 / zakres;
-        float hue = ((((float)value - Parameters.getStopCriteria()) * proportion));
-        return Color.getHSBColor(hue, 1.0f, 1.0f);
+        float hue = (zakres - ((float)value - (float)Parameters.getStopCriteria()))* proportion;
+        return Hsv_rgb.hsv2rgb(hue);
     }
 
     public static BufferedImage createColorScaleImage() {
-        BufferedImage bufferedImage = new BufferedImage(Matrix.getRows(), Matrix.getColumns(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage bufferedImage = new BufferedImage(Matrix.getRows(), Matrix.getColumns(), BufferedImage.TYPE_3BYTE_BGR);
         for (int x = 0; x < Matrix.getRows(); x++) {
             for (int y = 0; y < Matrix.getColumns(); y++) {
                 double value = Matrix.getCellTemperature(x, y);
                 Color color = getColorForValue(value);
-                bufferedImage.setRGB(x,y, color.getRGB());
+                bufferedImage.setRGB(y,x, color.getRGB());
             }
         }
         return bufferedImage;
@@ -35,5 +35,4 @@ public class HeatMapColors {
             e1.printStackTrace();
         }
     }
-
 }

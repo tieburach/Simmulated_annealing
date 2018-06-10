@@ -3,10 +3,7 @@ package sample.Controller;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sample.Model.MainWindow;
-import sample.Model.Matrix;
-import sample.Model.Parameters;
-import sample.Model.StartWindow;
+import sample.Model.*;
 
 import java.io.File;
 
@@ -15,6 +12,8 @@ public class ControllerStartWindow {
     public TextField selectedFileTextField, selectedTemperature;
     public CheckBox celciusCheckBox, kelvinCheckBox, fahrenheitCheckBox;
     public ComboBox numberOfThreadsBox;
+    public ComboBox rodzajMaterialu;
+    public TextField timeUnitTextField;
 
 
     //wartosci domyslne
@@ -32,7 +31,7 @@ public class ControllerStartWindow {
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showOpenDialog(StartWindow.getStage());
             Matrix.readFromFile(file.getAbsolutePath());
-            Parameters.setFilepath(file.getAbsolutePath());
+            Parameters.setFilepath(file.getParentFile().getAbsolutePath());
             selectedFileTextField.setText("" + file.getAbsolutePath());
         } catch (Exception ignored) {
         }
@@ -48,20 +47,30 @@ public class ControllerStartWindow {
 
     public void submitButtonAction() {
         //ustawienie zmiennej stopu, przeliczanie
-        if (kelvinCheckBox.isSelected()) {
-            Parameters.setStopCriteria(Integer.parseInt(selectedTemperature.getText()) - 273);
-        } else if (fahrenheitCheckBox.isSelected()) {
-            Parameters.setStopCriteria((int) ((Float.parseFloat(selectedTemperature.getText()) - 32) * 5 / 9));
-        } else {
-            Parameters.setStopCriteria(Integer.parseInt(selectedTemperature.getText()));
+
+        try {
+            if (kelvinCheckBox.isSelected()) {
+                Parameters.setStopCriteria(Integer.parseInt(selectedTemperature.getText()) - 273);
+            } else if (fahrenheitCheckBox.isSelected()) {
+                Parameters.setStopCriteria((int) ((Float.parseFloat(selectedTemperature.getText()) - 32) * 5 / 9));
+            } else {
+                Parameters.setStopCriteria(Integer.parseInt(selectedTemperature.getText()));
+            }
+            Parameters.setCurrentMaterialRatio(rodzajMaterialu.getValue().toString());
+            Parameters.setNumberOfThreads(Integer.parseInt(numberOfThreadsBox.getValue().toString()));
+            Parameters.setTimeUnit(Integer.parseInt(timeUnitTextField.getText()));
+            RowsDivider.divideRowsIntoThreads();
+            //przerzucenie stage
+            StartWindow.getStage().close();
+            MainWindow mainWindow = new MainWindow(new Stage());
+            mainWindow.start();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Blad");
+            alert.setHeaderText("Nie mozna przejsc dalej");
+            alert.setContentText("Ktorys z parametrow nie zostal wypelniony. Wroc do programu i uzupełnij wszystkie parametry.");
+            alert.showAndWait();
         }
-
-        Parameters.setNumberOfThreads(Integer.parseInt(numberOfThreadsBox.getValue().toString()));
-        //przerzucenie stage
-        StartWindow.getStage().close();
-        MainWindow mainWindow = new MainWindow(new Stage());
-        mainWindow.start();
-
     }
 
     public void celciusCheckBoxAction() {
