@@ -116,22 +116,50 @@ public class Matrix {
 
 
             if (row < Matrix.getRows() / 2) {
-                try {
-                    neighbourValue = Matrix.getCellTemperature(row - 1, col);
-                } catch (Exception e) {
-                    neighbourValue = Matrix.getCellTemperature(row + 1, col);
+                if (col < Matrix.getColumns() / 4) {
+                    try {
+                        neighbourValue = Matrix.getCellTemperature(row, col - 1);
+                    } catch (Exception e) {
+                        neighbourValue = Matrix.getCellTemperature(row, col + 1);
+                    }
+                } else if (col > Matrix.getColumns() * 3 / 4) {
+                    try {
+                        neighbourValue = Matrix.getCellTemperature(row, col + 1);
+                    } catch (Exception e) {
+                        neighbourValue = Matrix.getCellTemperature(row, col - 1);
+                    }
+                } else {
+                    try {
+                        neighbourValue = Matrix.getCellTemperature(row - 1, col);
+                    } catch (Exception e) {
+                        neighbourValue = Matrix.getCellTemperature(row + 1, col);
+                    }
                 }
+
             } else {
-                try {
-                    neighbourValue = Matrix.getCellTemperature(row + 1, col);
-                } catch (Exception e) {
-                    neighbourValue = Matrix.getCellTemperature(row - 1, col);
+                if (col < Matrix.getColumns() / 4) {
+                    try {
+                        neighbourValue = Matrix.getCellTemperature(row, col - 1);
+                    } catch (Exception e) {
+                        neighbourValue = Matrix.getCellTemperature(row, col + 1);
+                    }
+                } else if (col > Matrix.getColumns() * 3 / 4) {
+                    try {
+                        neighbourValue = Matrix.getCellTemperature(row, col + 1);
+                    } catch (Exception e) {
+                        neighbourValue = Matrix.getCellTemperature(row, col - 1);
+                    }
+                } else {
+                    try {
+                        neighbourValue = Matrix.getCellTemperature(row + 1, col);
+                    } catch (Exception e) {
+                        neighbourValue = Matrix.getCellTemperature(row - 1, col);
+                    }
                 }
             }
             return neighbourValue;
         }
     }
-
 
     private static double calculateResultProbability(int row, int col) {
         double result = 0;
