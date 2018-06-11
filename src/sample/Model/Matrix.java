@@ -89,7 +89,7 @@ public class Matrix {
     }
 
 
-    static void nextGeneration(int rowStart, int rowEnd) {
+    static synchronized void nextGeneration(int rowStart, int rowEnd) {
         for (int i = rowStart; i <= rowEnd; i++) {
             for (int j = 0; j < columns; j++) {
                 setCellTemperature(i, j, calculateNewTemperature(i, j));
@@ -97,7 +97,7 @@ public class Matrix {
         }
     }
 
-    private synchronized static double calculateNewTemperature(int row, int col) {
+    private static double calculateNewTemperature(int row, int col) {
         /*
         Temp =T.Otoczenia + (T.Poprzednia – T.Otoczenia) exp (-kt), gdzie t =1;
          */
